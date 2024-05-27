@@ -34,14 +34,6 @@ fragility   = np.array([2, 1, 3, 4, 1, 2, 5, 1, 2, 5])             # Fragility o
 capacity    = 15                                                   # Maximum bag capacity (kg)
 risk        = 12                                                   # Maximum risk tolerance
 
-# Create a Dataframe 
-data = {
-    "Weight"    : weights,
-    "Value"     : values,
-    "Fragility" : fragility
-}
-df = pd.DataFrame(data, index=["Item 1", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6", "Item 7", "Item 8", "Item 9", "Item 10"])
-
 # Check Total Weights 
 total_weight = np.sum(weights)
 if total_weight > capacity: 
@@ -58,9 +50,8 @@ def fitness_func(ga_instance, solution, solution_idx):
         3. The maximum fragility value <= the risk value
         4. Reach maximum value 
     '''
-    ## Force inclusion of item 2 (index 1) and item 10 (index 9) by setting its solution value to 1
+    ## Force inclusion of item 2 (index 1) by setting its solution value to 1
     solution[1] = 1
-    solution[9] = 1
     ## Check for capacity condition
     if np.sum(weights * solution) <= capacity:
         ## Check for risk condition
@@ -101,10 +92,12 @@ def results():
     all_solution                 = pd.DataFrame(solution_population, columns=item_name)
     all_solution['Total Weight'] = np.nan * np.ones(len(all_solution))
     all_solution['Total Values'] = np.nan * np.ones(len(all_solution))
+    all_solution['Total Risk'] = np.nan * np.ones(len(all_solution))
     ## Calculate total weights and values
     for i in range (len(solution_population)): 
         all_solution.loc[[i], ['Total Weight']] = sum(solution_population[i] * weights)
         all_solution.loc[[i], ['Total Values']] = sum(solution_population[i] * values)
+        all_solution.loc[[i], ['Total Risk']]   = sum(solution_population[i] * fragility)
     ## Slice the dataframe based on bag capacity
     all_solution    = all_solution[all_solution['Total Weight'] < capacity]
     best_solution   = all_solution.sort_values(by='Total Values', ascending=True).tail(1)
