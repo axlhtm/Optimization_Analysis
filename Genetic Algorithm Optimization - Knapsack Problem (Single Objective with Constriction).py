@@ -104,5 +104,3 @@ def results():
 results()
 
 solution, solution_fitness, solution_idx = ga_instance.best_solution()
-
-
