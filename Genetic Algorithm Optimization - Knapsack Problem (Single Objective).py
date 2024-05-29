@@ -70,7 +70,7 @@ ga_instance = pygad.GA(num_generations          = 30,               # Number of 
                        initial_population       = np.random.randint(0, 2, size=(10, len(weights))),  # Random initial population
                        )
 
-# Run the Genetic Algorithm
+# Run Genetic Algorithm
 ga_instance.run()
 
 # Access Results 
