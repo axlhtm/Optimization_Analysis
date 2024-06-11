@@ -45,7 +45,7 @@ import matplotlib.pyplot as plt
 import random
 
 # =============================================================================
-# EXAMPLE 1: FIND THE MINIMUM VALUE OF A ONE-DIMENTIONAL PROBLEM
+# EXAMPLE I: FIND THE MINIMUM VALUE OF A ONE-DIMENTIONAL PROBLEM
 # =============================================================================
 
 # Set the objective function for a one-dimentional problem
